@@ -3,7 +3,7 @@ resource "aws_security_group" "public" {
   description = "Allow inbound web traffic"
 
   dynamic "ingress" {
-    for_each = [80, 443]
+    for_each = var.allowed_ip_list_all
     content {
       from_port = ingress.value
       to_port = ingress.value
@@ -12,12 +12,12 @@ resource "aws_security_group" "public" {
     }
   }
   dynamic "ingress" {
-    for_each = [22]
+    for_each = var.allowed_ip_list_self
     content {
       from_port = ingress.value
       to_port = ingress.value
       protocol = "tcp"
-      cidr_blocks = ["${var.ip}/32"]
+      cidr_blocks = ["${var.ip}"]
     }
   }
 
@@ -30,6 +30,6 @@ resource "aws_security_group" "public" {
   }
 
   tags = {
-    "Name" = "Public"
+    "Name" = var.sec_grp_name # default = "bozo"
   }
 }

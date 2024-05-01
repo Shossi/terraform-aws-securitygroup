@@ -1,3 +1,24 @@
 variable "ip" {
-  default = "0.0.0.0"
+  type = string
+  default = "0.0.0.0/0"
+}
+
+variable "sec_grp_name" {
+  type = string
+  default = "bozo"
+}
+
+variable "instance_name" {
+  type = string
+  default = "noname"
+}
+
+variable "allowed_ip_list_self" {
+  type = list(number)
+  default = [22]
+}
+
+variable "allowed_ip_list_all" {
+  type = list(number)
+  default = [80,443]
 }
